@@ -1,0 +1,9 @@
+{
+  "files.associations": {
+    "stdio.h": "c",
+    "stdlib.h": "c",
+    "error.h": "c",
+    "system_error": "c",
+    "scanners.h": "c"
+  }
+}
