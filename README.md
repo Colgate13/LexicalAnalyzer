@@ -49,3 +49,20 @@ This project is an my implementation of a basic lexical analyzer, developed as p
 - [x] Open file
 - [x] Output files tokens
 
+## Docs
+<div id="docs"></div>
+
+### Build and Run
+```sh
+git clone https://github.com/Colgate13/firstCompiler.git
+cd firstCompiler
+make
+
+./bin/main ./Utils/example.code
+```
+
+## License
+
+<div id="license"></div>
+
+MIT [LICENSE](LICENSE.md)
