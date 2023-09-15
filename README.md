@@ -1,1 +1,1 @@
-# firstCompiler
+# Lexical Analyzer

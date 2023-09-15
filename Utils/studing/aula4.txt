@@ -1,20 +1,43 @@
-Análise Sintática Preditiva - Parsers/Parse
+Um alfabeto
+  Um conjunto finito e nao vazio, cujos alementos sao chamados simbolos do alfabeto
+  Em geral sao representados por letras gragas maiusculas (Sigma, Delta, T, N…)
 
-O Analisador sintatico ou parser é o processo principal do compilador
+Uma cadeia de simbolos no alfabeto Sigma é
+  Uma sequencia de zero ou mais simbolos de Sigma
+  A cadeia vazia de lambida é a cadeia de zero simbolos
 
-Funcoes
-  Verificar a boa formatacao do programa: quais cadeias pertencem a lingaugem;
-  Tratar error
+Uma gramatica G é uma construcao matematica usada para definir uma linguagem em uma alfabeto Sigma, e é definida atras de quatro componentes
 
-Seguencia de simbolos é passada do analisador lexico ou tambem chamado de scanner para o
-analisador sintatico
-  Geralmente sao representados por codigos
+  G = <Sigma, N, P, S>
 
-                        analisador sintatico
-  sequencia de marcas -----------------------> arvore Sintática
+  Uma alfabeto Sigma de simbolos terminais
 
-Agrua os simbolos recebidos do analisador lexio em estruturas sintaticas
+  Um alfabeto N de simbolos nao terminais
 
+  Um conjunto P de regras de producao da forma A→BETA, que indicam que a cadeia a pode ser substituida , onde ocorrer para cadeira Beta
 
+  Um nao terminal especial S, o simbolo inicial
 
+  a → BETA = alfa deriva beta onde alfa pode ser qualquer simbolo nao terminal e beta pode ser qualquer combinacao de simbolos, terminais ou nao terminais inclusive a cadeia vazia
 
+https://prod-files-secure.s3.us-west-2.amazonaws.com/7f00b7e6-d858-4f70-b7a7-9742c9402266/2c0c80e7-94fc-4880-b42c-399c002515d5/Untitled.png
+
+Usando a gramatica acima para a+a*a
+
+https://prod-files-secure.s3.us-west-2.amazonaws.com/7f00b7e6-d858-4f70-b7a7-9742c9402266/9980872f-8715-49cb-99a3-9c0ba43ba2d9/Untitled.png
+
+Relacoes em uma gramatica
+  Dada uma gramatica, podem-se identificar certas relacoes entre seus elementos:
+  Necessarias para a construcai de compiladores
+
+Essas informacoes serao usadas para decidir quais as regras a serem usadas durante o processo de analise sintatica
+
+Queremos saber para um nao terminal A:
+  Cabeca;
+  Ultimo;
+  Se gera ou nao cadeia vazia;
+  iniciadores (First):
+    Quais simbolos terminais iniciadores das cadeias geradas.
+
+  Seguidores (Follow):
+    Simbolo terminais seguidores de A;
