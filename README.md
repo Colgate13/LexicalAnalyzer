@@ -34,6 +34,11 @@
 
 This project is an my implementation of a basic lexical analyzer, developed as part of my learning about lexical analysis and automata. The lexical analyzer is a fundamental component of compilers and interpreters, responsible for breaking down the source code into tokens, which are the smallest recognizable units of the programming language.
 
+Implements this automata/state machine
+<p align="center">
+   <img src="https://github.com/Colgate13/LexicalAnalyzer/assets/54006467/5cbd69e3-6469-40e8-9a7b-2e1500ae2090" alt="lexial" width="400"/>
+</p>
+
 ## Technologies 🐱‍🏍🎂
 
 <div id="technologies"></div>
