@@ -57,6 +57,11 @@ Implements this automata/state machine
 ## Docs
 <div id="docs"></div>
 
+### Required
+```sh
+clang
+```
+
 ### Build and Run
 ```sh
 git clone https://github.com/Colgate13/LexicalAnalyzer.git
