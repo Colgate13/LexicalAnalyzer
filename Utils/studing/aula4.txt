@@ -1,0 +1,20 @@
+Análise Sintática Preditiva - Parsers/Parse
+
+O Analisador sintatico ou parser é o processo principal do compilador
+
+Funcoes
+  Verificar a boa formatacao do programa: quais cadeias pertencem a lingaugem;
+  Tratar error
+
+Seguencia de simbolos é passada do analisador lexico ou tambem chamado de scanner para o
+analisador sintatico
+  Geralmente sao representados por codigos
+
+                        analisador sintatico
+  sequencia de marcas -----------------------> arvore Sintática
+
+Agrua os simbolos recebidos do analisador lexio em estruturas sintaticas
+
+
+
+
