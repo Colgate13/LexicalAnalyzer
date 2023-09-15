@@ -54,8 +54,8 @@ This project is an my implementation of a basic lexical analyzer, developed as p
 
 ### Build and Run
 ```sh
-git clone https://github.com/Colgate13/firstCompiler.git
-cd firstCompiler
+git clone https://github.com/Colgate13/LexicalAnalyzer.git
+cd LexicalAnalyzer
 make
 
 ./bin/main ./Utils/example.code
