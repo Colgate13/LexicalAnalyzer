@@ -1,4 +1,4 @@
-# Lexical Analyzer
+<h1 align="center">Lexical Analyzer</h1>
 
 <p align="center">
    <img src="https://github.com/Colgate13/firstCompiler/assets/54006467/f2fe3f29-23c1-467b-af2d-597a378a31b2" alt="lexial" width="400"/>
