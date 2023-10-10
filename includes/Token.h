@@ -17,6 +17,7 @@ typedef struct
 } Token;
 
 Token constructToken(unsigned short int type, char *value);
+char *tokenTypeName(unsigned short int typeId); //#static function
 void destructToken(Token *token);
 void destructTokenNode(Token *token);
 unsigned short int getType(Token *token);
