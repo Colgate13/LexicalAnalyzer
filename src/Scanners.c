@@ -27,10 +27,16 @@ unsigned short int isSpace(char c)
 
 unsigned short int isOperator(char c)
 {
-  return c == '=' || c == '<' || c == '>' || c == '!';
+  return c == '=' || c == '<' || c == '>' || c == '!' 
+  || c == '+' || c == '-' || c == '*' || c == '/';
 }
 
 unsigned short int isSemicolon(char c)
 {
   return c == ';';
+}
+
+unsigned short int isEOF(char c)
+{
+  return c == '\0';
 }
