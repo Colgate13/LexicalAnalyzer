@@ -1,9 +1,20 @@
 {
   "files.associations": {
+    "*.vue": "vue",
     "stdio.h": "c",
     "stdlib.h": "c",
     "error.h": "c",
     "system_error": "c",
-    "scanners.h": "c"
+    "scanners.h": "c",
+    "token.h": "c",
+    "stddef.h": "c",
+    "string.h": "c",
+    "utils.h": "c",
+    "array": "c",
+    "functional": "c",
+    "tuple": "c",
+    "type_traits": "c",
+    "utility": "c",
+    "setjmp.h": "c"
   }
 }
