@@ -6,6 +6,7 @@
 
 #define INITIAL_STATE 0
 
-Token nextToken(char *content, size_t count);
+Token nextToken(char *content, size_t count, int newLine);
+void lexialMachine(char *contentLine, size_t count, int newLine);
 
 #endif

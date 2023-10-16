@@ -9,19 +9,9 @@
 #include "../includes/lexicalAnalyzer.h"
 
 #define INITIAL_STATE 0
+#define MAX_LINE_SIZE 1024
 
-void lexialMachine(char *content, size_t count)
-{
-  Token token = token = nextToken(content, count);
-
-  short int i = 0;
-  do {
-    printf("{ count: %d, token: { name: %s, type: %d, value: %s }\n", i, tokenTypeName(token.type), token.type, token.value);
-    i++;
-  } while (token = nextToken(content, count), token.type != TOKEN_TYPE_END);
-}
-
-int main(int argc, char *argv[] )
+int main(int argc, char *argv[])
 {
   printf("Lexical Analyzer\n");
   printf("File attach: %s\n", argv[1]);
@@ -41,27 +31,15 @@ int main(int argc, char *argv[] )
     exit(1);
   }
 
-  size_t count = charCount(attachFile);
+  char *line = (char *)malloc(MAX_LINE_SIZE * sizeof(char));
 
-  if (count == 0)
+  while (fgets(line, MAX_LINE_SIZE, attachFile) != NULL)
   {
-    throwError(1, "Error: File is empty");
-    return 1;
+    size_t count = strlen(line);
+    lexialMachine(line, count, 1);
   }
-
-  char *content = (char *)malloc(count * sizeof(char));
-
-  if (content == NULL)
-  {
-    throwError(1, "Error: Memory not allocated");
-    return 1;
-  }
-
-  size_t content_size = fread(content, 1, count, attachFile);
-
-  lexialMachine(content, content_size);
 
   fclose(attachFile);
-  free(content);
+  free(line);
   return 0;
 }
