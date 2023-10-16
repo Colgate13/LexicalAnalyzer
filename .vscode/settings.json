@@ -15,6 +15,8 @@
     "tuple": "c",
     "type_traits": "c",
     "utility": "c",
-    "setjmp.h": "c"
+    "setjmp.h": "c",
+    "algorithm": "c",
+    "lexicalanalyzer.h": "c"
   }
 }
