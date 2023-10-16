@@ -38,6 +38,9 @@ char *tokenTypeName(unsigned short int typeId)
   case 1001:
     return "TOKEN_TYPE_END";
     break;
+  case 1002:
+    return "TOKEN_TYPE_END_LINE";
+    break;
   default:
     return "INVALID_TOKEN_TYPE";
     break;

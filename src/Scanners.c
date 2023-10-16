@@ -22,7 +22,12 @@ unsigned short int isLetterUpperCase(char c)
 
 unsigned short int isSpace(char c)
 {
-  return c == ' ' || c == '\t' || c == '\n' || c == '\r';
+  return c == ' ' || c == '\t' || c == '\r';
+}
+
+unsigned short int isNewLine(char c)
+{
+  return c == '\n';
 }
 
 unsigned short int isOperator(char c)

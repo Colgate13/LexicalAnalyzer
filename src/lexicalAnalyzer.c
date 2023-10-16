@@ -9,10 +9,19 @@
 
 #define INITIAL_STATE 0
 
+short int globalTokensCount = 0;
 unsigned short int position = 0;
+unsigned int line = 0;
 
-Token nextToken(char *content, size_t count)
+Token nextToken(char *content, size_t count, int newLine)
 {
+
+  if (newLine)
+  {
+    position = 0;
+    line++;
+  }
+
   char *term = (char *)malloc(1000 * sizeof(char));
 
   unsigned short int currentState = INITIAL_STATE;
@@ -47,13 +56,17 @@ Token nextToken(char *content, size_t count)
       {
         currentState = 0;
       }
+      else if (isNewLine(currentChar))
+      {
+        currentState = 9;
+      }
       else if (isEOF(currentChar))
       {
         currentState = 9;
       }
       else
       {
-        throwError(1, "Error: Invalid character");
+        throwLexicalError(1, "Error: Invalid character", line, position, content);
         exit(1);
       }
       break;
@@ -109,10 +122,10 @@ Token nextToken(char *content, size_t count)
       return constructToken(TOKEN_TYPE_SEMICOLON, term);
       break;
     case 9:
-      return constructToken(TOKEN_TYPE_END, NULL);
+      return constructToken(TOKEN_TYPE_END_LINE, NULL);
       break;
     default:
-      throwError(currentState, "Error: Invalid state");
+      throwLexicalError(1, "Error: Invalid character", line, position, term);
       exit(1);
     }
 
@@ -120,5 +133,25 @@ Token nextToken(char *content, size_t count)
   }
 
   free(term);
-  return constructToken(TOKEN_TYPE_END, NULL);
+  return constructToken(TOKEN_TYPE_END_LINE, NULL);
+}
+
+void lexialMachine(char *contentLine, size_t count, int newLine)
+{
+  Token token = token = nextToken(contentLine, count, newLine);
+  short int localTokensCount = 0;
+
+  while (1)
+  {
+    printf("{ globalTokensCount: %d, token: { name: %s, type: %d, value: %s }\n", globalTokensCount, tokenTypeName(token.type), token.type, token.value);
+    localTokensCount++;
+    globalTokensCount++;
+
+    if (token.type == TOKEN_TYPE_END_LINE)
+    {
+      break;
+    }
+
+    token = nextToken(contentLine, count, 0);
+  }
 }
