@@ -6,28 +6,22 @@
 #include "../includes/Scanners.h"
 #include "../includes/Token.h"
 #include "../includes/Utils.h"
+#include "../includes/lexicalAnalyzer.h"
 
-#define INITIAL_STATE 0
-
-short int globalTokensCount = 0;
-unsigned short int position = 0;
-unsigned int line = 0;
-
-Token nextToken(char *content, size_t count, int newLine)
+Token nextStageState(LexicalAnalyzer *lexicalAnalyzer)
 {
-
-  if (newLine)
+  if (lexicalAnalyzer->newLine)
   {
-    position = 0;
-    line++;
+    lexicalAnalyzer->positionCount = 0;
+    lexicalAnalyzer->lineCount++;
   }
 
-  char *term = (char *)malloc(1000 * sizeof(char));
-
+  char *term = (char *)malloc(MAX_TERM_SIZE * sizeof(char));
   unsigned short int currentState = INITIAL_STATE;
-  while (position <= count + 1)
+
+  while (lexicalAnalyzer->positionCount <= strlen(lexicalAnalyzer->line) + 1)
   {
-    char currentChar = content[position];
+    char currentChar = lexicalAnalyzer->line[lexicalAnalyzer->positionCount];
 
     switch (currentState)
     {
@@ -66,7 +60,7 @@ Token nextToken(char *content, size_t count, int newLine)
       }
       else
       {
-        throwLexicalError(1, "Error: Invalid character", line, position, content);
+        throwLexicalError(1, "Error: Invalid character", lexicalAnalyzer->lineCount, lexicalAnalyzer->positionCount, lexicalAnalyzer->line);
         exit(1);
       }
       break;
@@ -104,15 +98,15 @@ Token nextToken(char *content, size_t count, int newLine)
       }
       break;
     case 2:
-      position--;
+      lexicalAnalyzer->positionCount--;
       return constructToken(TOKEN_TYPE_IDENTIFIER, term);
       break;
     case 4:
-      position--;
+      lexicalAnalyzer->positionCount--;
       return constructToken(TOKEN_TYPE_NUMBER, term);
       break;
     case 6:
-      position--;
+      lexicalAnalyzer->positionCount--;
       return constructToken(TOKEN_TYPE_OPERATOR, term);
       break;
     case 7:
@@ -125,33 +119,85 @@ Token nextToken(char *content, size_t count, int newLine)
       return constructToken(TOKEN_TYPE_END_LINE, NULL);
       break;
     default:
-      throwLexicalError(1, "Error: Invalid character", line, position, term);
+      throwLexicalError(1, "Error: Invalid character", lexicalAnalyzer->lineCount, lexicalAnalyzer->positionCount, term);
       exit(1);
     }
 
-    position++;
+    lexicalAnalyzer->positionCount++;
   }
 
   free(term);
   return constructToken(TOKEN_TYPE_END_LINE, NULL);
 }
 
-void lexialMachine(char *contentLine, size_t count, int newLine)
+Token nextToken(LexicalAnalyzer *lexicalAnalyzer)
 {
-  Token token = token = nextToken(contentLine, count, newLine);
-  short int localTokensCount = 0;
 
-  while (1)
+  if(lexicalAnalyzer->isEOF) {
+    Token token = constructToken(TOKEN_TYPE_END, NULL);
+    return token;
+  }
+
+  if (lexicalAnalyzer->globalTokensCount == 0 && !lexicalAnalyzer->line)
   {
-    printf("{ globalTokensCount: %d, token: { name: %s, type: %d, value: %s }\n", globalTokensCount, tokenTypeName(token.type), token.type, token.value);
-    localTokensCount++;
-    globalTokensCount++;
+    lexicalAnalyzer->line = readLine(lexicalAnalyzer->file, MAX_LINE_SIZE);
+  }
 
-    if (token.type == TOKEN_TYPE_END_LINE)
+  Token token = token = nextStageState(lexicalAnalyzer);
+
+  if (token.type == TOKEN_TYPE_END_LINE)
+  {
+    char *line = (char *)malloc(MAX_LINE_SIZE * sizeof(char));
+    line = readLine(lexicalAnalyzer->file, MAX_LINE_SIZE);
+
+    if (line == NULL)
     {
-      break;
+      lexicalAnalyzer->isEOF = 1;
     }
 
-    token = nextToken(contentLine, count, 0);
+    lexicalAnalyzer->line = line;
+    lexicalAnalyzer->newLine = 1;
   }
+  else
+  {
+    lexicalAnalyzer->newLine = 0;
+  }
+
+  lexicalAnalyzer->globalTokensCount++;
+
+  return token;
+}
+
+
+LexicalAnalyzer *createLexicalAnalyzer(const char *filePath)
+{
+  FILE *attachFile = fopen(filePath, "r");
+
+  if (attachFile == NULL)
+  {
+    throwError(1, "Error: File not found\n");
+    exit(1);
+  }
+
+  LexicalAnalyzer *lexicalAnalyzer = (LexicalAnalyzer *)malloc(sizeof(LexicalAnalyzer));
+
+  lexicalAnalyzer->file = attachFile;
+  lexicalAnalyzer->newLine = 0;
+  lexicalAnalyzer->globalTokensCount = 0;
+  lexicalAnalyzer->line = NULL;
+  lexicalAnalyzer->isEOF = 0;
+
+  return lexicalAnalyzer;
+}
+
+void destroyLexicalAnalyzer(LexicalAnalyzer *analyzer)
+{
+  fclose(analyzer->file);
+  free(analyzer->line);
+  free(analyzer);
+}
+
+void closeLexicalAnalyzer(LexicalAnalyzer *lexicalAnalyzer)
+{
+  destroyLexicalAnalyzer(lexicalAnalyzer);
 }

@@ -1,12 +1,26 @@
 #ifndef LEXICALANALYZER_H
 #define LEXICALANALYZER_H
 
-#include "../includes/Token.h"
 #include <stdio.h>
+#include "../includes/Token.h"
 
 #define INITIAL_STATE 0
+#define MAX_LINE_SIZE 1024
+#define MAX_TERM_SIZE 1000
 
-Token nextToken(char *content, size_t count, int newLine);
-void lexialMachine(char *contentLine, size_t count, int newLine);
+typedef struct
+{
+  FILE *file;
+  char *line;
+  short int globalTokensCount;
+  int newLine;
+  unsigned short int positionCount;
+  unsigned int lineCount;
+  unsigned short int isEOF;
+} LexicalAnalyzer;
+
+LexicalAnalyzer *createLexicalAnalyzer(const char *filePath);
+void closeLexicalAnalyzer(LexicalAnalyzer *lexicalAnalyzer);
+Token nextToken(LexicalAnalyzer *lexicalAnalyzer);
 
 #endif
