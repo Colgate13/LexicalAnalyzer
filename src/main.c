@@ -3,13 +3,7 @@
 #include <string.h>
 
 #include "../includes/Error.h"
-#include "../includes/Scanners.h"
-#include "../includes/Token.h"
-#include "../includes/Utils.h"
 #include "../includes/lexicalAnalyzer.h"
-
-#define INITIAL_STATE 0
-#define MAX_LINE_SIZE 1024
 
 int main(int argc, char *argv[])
 {
@@ -22,24 +16,32 @@ int main(int argc, char *argv[])
     exit(1);
   }
 
-  FILE *attachFile;
-  attachFile = fopen(argv[1], "r");
+  LexicalAnalyzer *lexicalAnalyzer = createLexicalAnalyzer(argv[1]);
 
-  if (attachFile == NULL)
-  {
-    throwError(1, "Error: File not found\n");
-    exit(1);
-  }
+  nextToken(lexicalAnalyzer);
+  nextToken(lexicalAnalyzer);
+  nextToken(lexicalAnalyzer);
+  nextToken(lexicalAnalyzer);
+  nextToken(lexicalAnalyzer);
+  nextToken(lexicalAnalyzer);
+  nextToken(lexicalAnalyzer);
+  nextToken(lexicalAnalyzer);
+  nextToken(lexicalAnalyzer);
+  nextToken(lexicalAnalyzer);
+  nextToken(lexicalAnalyzer);
+  nextToken(lexicalAnalyzer);
+  nextToken(lexicalAnalyzer);
+  nextToken(lexicalAnalyzer);
+  nextToken(lexicalAnalyzer);
+  nextToken(lexicalAnalyzer);
+  nextToken(lexicalAnalyzer);
+  nextToken(lexicalAnalyzer);
+  nextToken(lexicalAnalyzer);
+  nextToken(lexicalAnalyzer);
+  Token token = nextToken(lexicalAnalyzer);
 
-  char *line = (char *)malloc(MAX_LINE_SIZE * sizeof(char));
+  printf("Token: %s, value: %s\n", tokenTypeName(token.type), token.value);
 
-  while (fgets(line, MAX_LINE_SIZE, attachFile) != NULL)
-  {
-    size_t count = strlen(line);
-    lexialMachine(line, count, 1);
-  }
-
-  fclose(attachFile);
-  free(line);
+  closeLexicalAnalyzer(lexicalAnalyzer);
   return 0;
 }
