@@ -32,6 +32,12 @@ char *tokenTypeName(unsigned short int typeId)
   case 4:
     return "TOKEN_TYPE_ASSIGN";
     break;
+  case 5:
+    return "TOKEN_TYPE_KEYWORDS";
+    break;
+  case 6:
+    return "TOKEN_TYPE_STRING";
+    break;
   case 1000:
     return "TOKEN_TYPE_INITIALIZE";
     break;
