@@ -18,29 +18,19 @@ int main(int argc, char *argv[])
 
   LexicalAnalyzer *lexicalAnalyzer = createLexicalAnalyzer(argv[1]);
 
-  nextToken(lexicalAnalyzer);
-  nextToken(lexicalAnalyzer);
-  nextToken(lexicalAnalyzer);
-  nextToken(lexicalAnalyzer);
-  nextToken(lexicalAnalyzer);
-  nextToken(lexicalAnalyzer);
-  nextToken(lexicalAnalyzer);
-  nextToken(lexicalAnalyzer);
-  nextToken(lexicalAnalyzer);
-  nextToken(lexicalAnalyzer);
-  nextToken(lexicalAnalyzer);
-  nextToken(lexicalAnalyzer);
-  nextToken(lexicalAnalyzer);
-  nextToken(lexicalAnalyzer);
-  nextToken(lexicalAnalyzer);
-  nextToken(lexicalAnalyzer);
-  nextToken(lexicalAnalyzer);
-  nextToken(lexicalAnalyzer);
-  nextToken(lexicalAnalyzer);
-  nextToken(lexicalAnalyzer);
   Token token = nextToken(lexicalAnalyzer);
-
   printf("Token: %s, value: %s\n", tokenTypeName(token.type), token.value);
+
+  while (1)
+  {
+    token = nextToken(lexicalAnalyzer);
+    printf("Token: %s, value: %s\n", tokenTypeName(token.type), token.value);
+
+    if (token.type == TOKEN_TYPE_END)
+    {
+      break;
+    }
+  }
 
   closeLexicalAnalyzer(lexicalAnalyzer);
   return 0;

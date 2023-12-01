@@ -11,6 +11,7 @@
 #define TOKEN_TYPE_SEMICOLON 3
 #define TOKEN_TYPE_ASSIGN 4
 #define TOKEN_TYPE_KEYWORDS 5
+#define TOKEN_TYPE_STRING 6
 
 typedef struct
 {

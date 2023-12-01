@@ -5,6 +5,11 @@ unsigned short int isDigit(char c)
   return c >= '0' && c <= '9';
 }
 
+unsigned short int isString(char c)
+{
+  return c == '"';
+}
+
 unsigned short int isLetter(char c)
 {
   return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');

@@ -54,6 +54,10 @@ Token nextStageState(LexicalAnalyzer *lexicalAnalyzer)
       {
         currentState = 9;
       }
+      else if (isString(currentChar))
+      {
+        currentState = 11;
+      }
       else if (isEOF(currentChar))
       {
         currentState = 9;
@@ -97,6 +101,17 @@ Token nextStageState(LexicalAnalyzer *lexicalAnalyzer)
         currentState = 6;
       }
       break;
+    case 11:
+      if (isString(currentChar))
+      {
+        currentState = 12;
+      }
+      else
+      {
+        currentState = 11;
+        strncat(term, &currentChar, 1);
+      }
+      break;
     case 2:
       lexicalAnalyzer->positionCount--;
       return constructToken(TOKEN_TYPE_IDENTIFIER, term);
@@ -118,6 +133,9 @@ Token nextStageState(LexicalAnalyzer *lexicalAnalyzer)
     case 9:
       return constructToken(TOKEN_TYPE_END_LINE, NULL);
       break;
+    case 12:
+      return constructToken(TOKEN_TYPE_STRING, term);
+      break;
     default:
       throwLexicalError(1, "Error: Invalid character", lexicalAnalyzer->lineCount, lexicalAnalyzer->positionCount, term);
       exit(1);
@@ -133,7 +151,8 @@ Token nextStageState(LexicalAnalyzer *lexicalAnalyzer)
 Token nextToken(LexicalAnalyzer *lexicalAnalyzer)
 {
 
-  if(lexicalAnalyzer->isEOF) {
+  if (lexicalAnalyzer->isEOF)
+  {
     Token token = constructToken(TOKEN_TYPE_END, NULL);
     return token;
   }
@@ -157,6 +176,7 @@ Token nextToken(LexicalAnalyzer *lexicalAnalyzer)
 
     lexicalAnalyzer->line = line;
     lexicalAnalyzer->newLine = 1;
+    token = nextToken(lexicalAnalyzer);
   }
   else
   {
@@ -167,7 +187,6 @@ Token nextToken(LexicalAnalyzer *lexicalAnalyzer)
 
   return token;
 }
-
 
 LexicalAnalyzer *createLexicalAnalyzer(const char *filePath)
 {
