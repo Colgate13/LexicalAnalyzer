@@ -56,7 +56,20 @@ Token nextStageState(LexicalAnalyzer *lexicalAnalyzer)
       }
       else if (isString(currentChar))
       {
+        strncat(term, &currentChar, 1);
         currentState = 11;
+      }
+      else if (isRightParenthesis(currentChar))
+      {
+        strncat(term, &currentChar, 1);
+
+        currentState = 13;
+      }
+      else if (isLeftParenthesis(currentChar))
+
+      {
+        strncat(term, &currentChar, 1);
+        currentState = 14;
       }
       else if (isEOF(currentChar))
       {
@@ -104,6 +117,8 @@ Token nextStageState(LexicalAnalyzer *lexicalAnalyzer)
     case 11:
       if (isString(currentChar))
       {
+        strncat(term, &currentChar, 1);
+
         currentState = 12;
       }
       else
@@ -135,6 +150,12 @@ Token nextStageState(LexicalAnalyzer *lexicalAnalyzer)
       break;
     case 12:
       return constructToken(TOKEN_TYPE_STRING, term);
+      break;
+    case 13:
+      return constructToken(TOKEN_TYPE_RIGHT_PARENTHESIS, term);
+      break;
+    case 14:
+      return constructToken(TOKEN_TYPE_LEFT_PARENTHESIS, term);
       break;
     default:
       throwLexicalError(1, "Error: Invalid character", lexicalAnalyzer->lineCount, lexicalAnalyzer->positionCount, term);

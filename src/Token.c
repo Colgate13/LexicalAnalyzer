@@ -38,6 +38,12 @@ char *tokenTypeName(unsigned short int typeId)
   case 6:
     return "TOKEN_TYPE_STRING";
     break;
+  case 7:
+    return "TOKEN_TYPE_RIGHT_PARENTHESIS";
+    break;
+  case 8:
+    return "TOKEN_TYPE_LEFT_PARENTHESIS";
+    break;
   case 1000:
     return "TOKEN_TYPE_INITIALIZE";
     break;

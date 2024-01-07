@@ -10,6 +10,16 @@ unsigned short int isString(char c)
   return c == '"';
 }
 
+unsigned short int isRightParenthesis(char c)
+{
+  return c == ')';
+}
+
+unsigned short int isLeftParenthesis(char c)
+{
+  return c == '(';
+}
+
 unsigned short int isLetter(char c)
 {
   return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
