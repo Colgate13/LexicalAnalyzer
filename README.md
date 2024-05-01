@@ -1,18 +1,18 @@
 <h1 align="center">Lexical Analyzer</h1>
 
 <p align="center">
-   <img src="https://github.com/Colgate13/firstCompiler/assets/54006467/f2fe3f29-23c1-467b-af2d-597a378a31b2" alt="lexial" width="400"/>
+   <img src="https://github.com/Colgate13/LexicalAnalyzer/assets/54006467/f2fe3f29-23c1-467b-af2d-597a378a31b2" alt="lexial" width="400"/>
 </p>
 
 <p align="center">	
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/Colgate13/firstCompiler?color=774DD6">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/Colgate13/LexicalAnalyzer?color=774DD6">
 
-  <a href="https://github.com/Colgate13/firstCompiler/commits">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/Colgate13/firstCompiler?color=774DD6">
+  <a href="https://github.com/Colgate13/LexicalAnalyzer/commits">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/Colgate13/LexicalAnalyzer?color=774DD6">
   </a> 
   <img alt="License" src="https://img.shields.io/badge/license-MIT-8257E5">
-  <a href="https://github.com/Colgate13/firstCompiler/stargazers">
-    <img alt="Stargazers" src="https://img.shields.io/github/stars/Colgate13/firstCompiler?color=8257E5&logo=github">
+  <a href="https://github.com/Colgate13/LexicalAnalyzer/stargazers">
+    <img alt="Stargazers" src="https://img.shields.io/github/stars/Colgate13/LexicalAnalyzer?color=8257E5&logo=github">
   </a>
 </p>
 
@@ -67,6 +67,7 @@ clang
 git clone https://github.com/Colgate13/LexicalAnalyzer.git
 cd LexicalAnalyzer
 make
+make install # to install the lib binary in /usr/local/
 
 ./bin/main ./Utils/example.code
 ```
